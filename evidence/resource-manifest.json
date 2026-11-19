@@ -1,0 +1,48 @@
+{
+  "source": "https://markdown.com.cn/wechat/",
+  "capturedDate": "2026-11-20",
+  "resources": [
+    {
+      "file": "index.html",
+      "sourceUrl": "https://markdown.com.cn/wechat/",
+      "bytes": 20845,
+      "sha256": "32a3d29eccd42cfd905a990cd73701408be275cc4592b40baa579266bd71cc6d"
+    },
+    {
+      "file": "css/app.css",
+      "sourceUrl": "https://markdown.com.cn/wechat/css/app.css",
+      "bytes": 18358,
+      "sha256": "8eae984c606e5e68e473c523bc10c0f6c490a07706351bc7754a3700b81c386e"
+    },
+    {
+      "file": "js/themes.js",
+      "sourceUrl": "https://markdown.com.cn/wechat/js/themes.js",
+      "bytes": 13993,
+      "sha256": "f299c6a229a9d12c75d4350dc9e08744bf2fd426296738ea65a4157be4bd52dd"
+    },
+    {
+      "file": "js/templates.js",
+      "sourceUrl": "https://markdown.com.cn/wechat/js/templates.js",
+      "bytes": 10521,
+      "sha256": "78dbba2deab2ae572b192601da9932b8d55b0b7169edc5606d664b8a8972b4ac"
+    },
+    {
+      "file": "js/converter.js",
+      "sourceUrl": "https://markdown.com.cn/wechat/js/converter.js",
+      "bytes": 27876,
+      "sha256": "b4097f83a79231fbec65b7a149b9d61c41cb0cc9d00d907171809c12a5be3801"
+    },
+    {
+      "file": "js/editor-highlight.js",
+      "sourceUrl": "https://markdown.com.cn/wechat/js/editor-highlight.js",
+      "bytes": 7054,
+      "sha256": "f5b178cc2ff70c89679aaa99993866c64aa5bdf867d47319b60bdf28981ed958"
+    },
+    {
+      "file": "js/app.js",
+      "sourceUrl": "https://markdown.com.cn/wechat/js/app.js",
+      "bytes": 36749,
+      "sha256": "5d9bb6493e4f4cbad7144a432b8d5f9b0dd9d7b8da0399fcd0b6cdf69b90812a"
+    }
+  ]
+}

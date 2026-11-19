@@ -1,0 +1,32 @@
+# Dependencies and package manager caches
+node_modules/
+.npm/
+.pnpm-store/
+
+# Generated deployment and test outputs
+dist/
+coverage/
+test-results/
+playwright-report/
+blob-report/
+.cache/
+tmp/
+temp/
+*.log
+*.tsbuildinfo
+
+# Local environment and editor settings
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Keep documented screenshots and resource-manifest.json in Git.
+evidence/rea-*.json
+evidence/browser-verification.json

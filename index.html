@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="免费微信公众号 Markdown 在线排版工具，支持实时预览、10 套主题、代码高亮与一键复制。">
+  <title>在线微信公众号编辑器 · 微信公众号 Markdown 排版工具</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="stylesheet" href="./css/app.css">
+</head>
+<body>
+  <div class="app-layout">
+    <header class="top-header">
+      <div class="brand-group">
+        <div class="brand-logo" aria-hidden="true">W</div>
+        <div>
+          <h1 class="brand-title">微信公众号 Markdown 排版工具</h1>
+          <p class="brand-subtitle">提供多种高审美现代主题风格与语义化排版增强，符合微信官方排版与暗色规范。</p>
+        </div>
+      </div>
+      <div class="header-controls">
+        <div class="select-control-group">
+          <label for="theme-select" class="select-control-label"><span class="theme-dot" id="active-theme-dot"></span><span>排版风格</span></label>
+          <select id="theme-select" class="header-select" aria-label="排版风格">
+            <optgroup label="✨ 深度阅读 / 现代质感">
+              <option value="editorial-sspai">数字生活·少数派风</option>
+              <option value="editorial-latepost">商业深度·晚点风</option>
+              <option value="essay-songyan">人文随笔·松烟墨</option>
+            </optgroup>
+            <optgroup label="👨‍💻 技术文章 / 极简工程">
+              <option value="dev-linear">极简科技·Linear 风</option>
+              <option value="dev-tech-blue">开发者·极客蓝</option>
+              <option value="dev-wechat-green">开发者·开源绿</option>
+            </optgroup>
+            <optgroup label="🎪 活动通知">
+              <option value="meetup-vibrant">Meetup·活力橙</option>
+              <option value="meetup-aurora">Meetup·极光紫</option>
+            </optgroup>
+            <optgroup label="🏮 日常生活"><option value="daily-festive-red">节日·喜庆红</option></optgroup>
+            <optgroup label="📄 无样式"><option value="plain-github">极简·GitHub 原生</option></optgroup>
+          </select>
+        </div>
+        <div class="select-control-group code-theme-control">
+          <label for="code-theme-select" class="select-control-label"><span aria-hidden="true">{ }</span><span>代码主题</span></label>
+          <select id="code-theme-select" class="header-select" aria-label="代码主题">
+            <option value="mac-dark">Mac 深色</option>
+            <option value="github">GitHub</option>
+            <option value="monokai">Monokai</option>
+            <option value="atom-one-dark">Atom One Dark</option>
+            <option value="atom-one-light">Atom One Light</option>
+            <option value="wechat">微信代码主题</option>
+          </select>
+        </div>
+        <div class="select-control-group">
+          <label for="sample-select" class="select-control-label"><span aria-hidden="true">📄</span><span>示例模板</span></label>
+          <select id="sample-select" class="header-select" aria-label="示例模板">
+            <option value="" disabled hidden>选择示例模板...</option>
+            <optgroup label="📖 基础入门"><option value="basic-guide">基础使用说明</option></optgroup>
+            <optgroup label="✨ 深度阅读"><option value="editorial-article">深度专栏/评论模板</option></optgroup>
+            <optgroup label="👨‍💻 技术文章"><option value="tech-article">技术文章模板</option></optgroup>
+            <optgroup label="🎪 活动通知"><option value="meetup-notice">Meetup 通知模板</option></optgroup>
+          </select>
+        </div>
+        <button type="button" class="darkmode-toggle-btn header-layout-btn" id="btn-layout-settings">⚙️ 排版设置</button>
+        <button type="button" class="btn-copy-primary" id="btn-copy-wx">📋 一键复制到公众号</button>
+      </div>
+    </header>
+
+    <main class="workspace-split">
+      <section class="pane pane-editor" aria-label="Markdown 编辑区">
+        <div class="pane-toolbar">
+          <div class="snippet-bar">
+            <div class="quote-menu-wrap file-menu-wrap">
+              <button type="button" class="snippet-btn" id="file-menu-trigger" aria-expanded="false">📁 文件 <span class="dropdown-caret">▾</span></button>
+              <div id="file-menu-panel" class="snippet-popover-panel" hidden>
+                <button type="button" class="snippet-popover-item" id="btn-import-md"><span class="alert-badge">📥</span><span class="popover-item-label">导入 Markdown</span><code>.md / .txt</code></button>
+                <button type="button" class="snippet-popover-item" id="btn-export-md"><span class="alert-badge">📤</span><span class="popover-item-label">导出 Markdown</span><code>⌘S</code></button>
+                <button type="button" class="snippet-popover-item" id="btn-history"><span class="alert-badge">🕘</span><span class="popover-item-label">本地历史版本</span><code>20 份</code></button>
+              </div>
+            </div>
+            <button type="button" class="snippet-btn" id="btn-search">🔍 查找替换</button>
+            <button type="button" class="snippet-btn" data-snippet="h2">H2 标题</button>
+            <button type="button" class="snippet-btn" data-snippet="h3">H3 小节</button>
+            <button type="button" class="snippet-btn" data-snippet="bold"><b>B</b> 粗体高亮</button>
+            <div class="quote-menu-wrap">
+              <button type="button" class="snippet-btn" id="quote-menu-trigger" aria-expanded="false">❝ 引用 / 提示框 <span class="dropdown-caret">▾</span></button>
+              <div id="quote-menu-panel" class="snippet-popover-panel" hidden>
+                <button type="button" class="snippet-popover-item" data-snippet="quote"><span class="alert-badge">❝</span><span class="popover-item-label">普通引用 / 信息卡</span><code>&gt; 引用</code></button>
+                <div class="snippet-popover-divider"></div>
+                <button type="button" class="snippet-popover-item" data-snippet="alert-note"><span class="alert-badge note">ℹ️</span><span class="popover-item-label">提示 (Note)</span><code>[!NOTE]</code></button>
+                <button type="button" class="snippet-popover-item" data-snippet="alert-tip"><span class="alert-badge tip">💡</span><span class="popover-item-label">技巧 (Tip)</span><code>[!TIP]</code></button>
+                <button type="button" class="snippet-popover-item" data-snippet="alert-important"><span class="alert-badge important">📌</span><span class="popover-item-label">重要 (Important)</span><code>[!IMPORTANT]</code></button>
+                <button type="button" class="snippet-popover-item" data-snippet="alert-warning"><span class="alert-badge warning">⚠️</span><span class="popover-item-label">注意 (Warning)</span><code>[!WARNING]</code></button>
+                <button type="button" class="snippet-popover-item" data-snippet="alert-caution"><span class="alert-badge caution">🚨</span><span class="popover-item-label">警告 (Caution)</span><code>[!CAUTION]</code></button>
+                <button type="button" class="snippet-popover-item" data-snippet="alert-speaker"><span class="alert-badge speaker">🎙️</span><span class="popover-item-label">嘉宾与议题卡</span><code>[!SPEAKER]</code></button>
+              </div>
+            </div>
+            <button type="button" class="snippet-btn" data-snippet="inline-code">`行内代码`</button>
+            <button type="button" class="snippet-btn" data-snippet="codeblock">{ } 代码块</button>
+            <button type="button" class="snippet-btn" data-snippet="table">⊞ 议程/表格</button>
+            <button type="button" class="snippet-btn" id="btn-insert-image">🖼️ 图片</button>
+            <button type="button" class="snippet-btn" data-snippet="link">🔗 外链</button>
+            <button type="button" class="snippet-btn" data-snippet="hr">― 分割线</button>
+          </div>
+          <button type="button" class="snippet-btn danger" id="btn-clear-editor">清空</button>
+        </div>
+        <textarea id="md-editor" class="editor-textarea scroller" placeholder="在此输入或粘贴 Markdown 内容..." spellcheck="false" aria-label="Markdown 源码输入框"></textarea>
+        <footer class="pane-statusbar">
+          <div class="stats-list"><span id="stat-chars">0 字</span><span id="stat-read-time">预计阅读 1 分钟</span><span id="stat-footnotes">外链引用 0 处</span></div>
+          <div class="stats-list"><span class="spec-badge pass">✓ 微信排版规范校验通过</span><span id="save-status">本地自动保存</span></div>
+        </footer>
+      </section>
+
+      <section class="pane pane-preview" aria-label="微信公众号实时预览区">
+        <div class="pane-toolbar preview-toolbar">
+          <div class="preview-options">
+            <label class="checkbox-label"><input type="checkbox" id="toggle-h2-number" checked><span>标题自动序号</span></label>
+            <label class="checkbox-label" id="label-h2-center"><input type="checkbox" id="toggle-h2-center"><span>标题居中</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="toggle-footnote" checked><span>外链转文末引用</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="toggle-mac-code" checked><span>代码块 Mac 窗口</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="toggle-code-lines"><span>代码显示行号</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="toggle-code-scroll"><span>代码横向滚动</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="toggle-sync-scroll" checked><span>同步滚动</span></label>
+          </div>
+          <div class="preview-toolbar-right">
+            <button type="button" class="darkmode-toggle-btn" id="btn-toggle-darkmode" aria-pressed="false"><span id="dm-toggle-icon">🌙</span><span>模拟微信暗色</span></button>
+            <div class="view-mode-switch" role="group" aria-label="预览尺寸切换">
+              <button type="button" class="view-btn active" data-view-btn="mobile">📱 手机视图</button>
+              <button type="button" class="view-btn" data-view-btn="desktop">🖥️ 宽屏视图</button>
+            </div>
+          </div>
+        </div>
+        <div class="preview-scroll-area scroller" id="preview-scroll-container">
+          <div class="preview-device mobile-mode" id="preview-device-wrapper">
+            <div class="wx-mock-statusbar"><span>微信公众号图文预览</span><span class="wx-mock-dots">•••</span></div>
+            <div id="wx-output"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <input type="file" id="md-file-input" accept=".md,.markdown,.txt,text/markdown,text/plain" hidden>
+  <input type="file" id="image-file-input" accept="image/jpeg,image/png,image/gif,image/webp" multiple hidden>
+
+  <dialog id="search-dialog" class="app-dialog">
+    <div class="dialog-header"><h2>查找与替换</h2><button type="button" class="dialog-close" data-close-dialog="search-dialog" aria-label="关闭">×</button></div>
+    <div class="dialog-body">
+      <label class="field-label" for="search-input">查找内容</label>
+      <input type="text" id="search-input" class="dialog-input" placeholder="输入要查找的文字" autocomplete="off">
+      <label class="field-label" for="replace-input">替换为</label>
+      <input type="text" id="replace-input" class="dialog-input" placeholder="留空可删除匹配内容" autocomplete="off">
+      <label class="checkbox-label dialog-checkbox"><input type="checkbox" id="search-ignore-case" checked><span>忽略大小写</span></label>
+      <p class="dialog-hint" id="search-status">支持逐个查找、替换当前匹配或全部替换。</p>
+    </div>
+    <div class="dialog-footer"><button type="button" class="dialog-btn" id="btn-find-next">查找下一个</button><button type="button" class="dialog-btn" id="btn-replace-one">替换</button><button type="button" class="dialog-btn primary" id="btn-replace-all">全部替换</button></div>
+  </dialog>
+
+  <dialog id="history-dialog" class="app-dialog history-dialog">
+    <div class="dialog-header"><h2>本地历史版本</h2><button type="button" class="dialog-close" data-close-dialog="history-dialog" aria-label="关闭">×</button></div>
+    <div class="dialog-body">
+      <p class="dialog-hint">最多保留最近 20 份快照，仅保存在当前浏览器中。恢复前会自动保存当前草稿。</p>
+      <div id="history-list" class="history-list"></div>
+    </div>
+    <div class="dialog-footer"><button type="button" class="dialog-btn primary" id="btn-save-history">立即保存快照</button><button type="button" class="dialog-btn" data-close-dialog="history-dialog">关闭</button></div>
+  </dialog>
+
+  <dialog id="layout-dialog" class="app-dialog layout-dialog">
+    <div class="dialog-header"><h2>排版设置</h2><button type="button" class="dialog-close" data-close-dialog="layout-dialog" aria-label="关闭">×</button></div>
+    <div class="dialog-body layout-dialog-body">
+      <section class="layout-section">
+        <h3>文章主题色</h3>
+        <div class="layout-accent-row"><input type="color" id="layout-accent-color" aria-label="自定义主题色"><output id="layout-accent-value" for="layout-accent-color">#d93829</output></div>
+        <div class="layout-swatches" aria-label="推荐主题色">
+          <button type="button" class="layout-swatch" data-accent="#d93829" style="background-color:#d93829;" aria-label="砖红" aria-pressed="false"></button>
+          <button type="button" class="layout-swatch" data-accent="#b45309" style="background-color:#b45309;" aria-label="暖橙" aria-pressed="false"></button>
+          <button type="button" class="layout-swatch" data-accent="#2f5d50" style="background-color:#2f5d50;" aria-label="松绿" aria-pressed="false"></button>
+          <button type="button" class="layout-swatch" data-accent="#2563eb" style="background-color:#2563eb;" aria-label="科技蓝" aria-pressed="false"></button>
+          <button type="button" class="layout-swatch" data-accent="#4f46e5" style="background-color:#4f46e5;" aria-label="靛蓝" aria-pressed="false"></button>
+          <button type="button" class="layout-swatch" data-accent="#6d28d9" style="background-color:#6d28d9;" aria-label="极光紫" aria-pressed="false"></button>
+          <button type="button" class="layout-swatch" data-accent="#be185d" style="background-color:#be185d;" aria-label="花粉" aria-pressed="false"></button>
+          <button type="button" class="layout-swatch" data-accent="#047857" style="background-color:#047857;" aria-label="翡翠绿" aria-pressed="false"></button>
+        </div>
+      </section>
+      <section class="layout-section">
+        <h3>正文基础</h3>
+        <div class="layout-grid">
+          <div class="layout-field"><label for="layout-font-family">正文字体</label><select id="layout-font-family" class="layout-input"><option value="theme">模板默认</option><option value="system">系统黑体</option><option value="serif">衬线字体</option><option value="monospace">等宽字体</option></select></div>
+          <div class="layout-field"><label for="layout-heading-font">标题字体</label><select id="layout-heading-font" class="layout-input"><option value="theme">跟随模板</option><option value="system">系统黑体</option><option value="serif">衬线字体</option><option value="monospace">等宽字体</option></select></div>
+          <div class="layout-field"><label for="layout-blockquote-font">引言字体</label><select id="layout-blockquote-font" class="layout-input"><option value="theme">跟随模板</option><option value="system">系统黑体</option><option value="serif">衬线字体</option><option value="monospace">等宽字体</option></select></div>
+          <div class="layout-field"><label for="layout-font-size">正文字号</label><div class="layout-number"><input type="number" id="layout-font-size" class="layout-input" min="13" max="22" step="0.5"><span>px</span></div></div>
+          <div class="layout-field"><label for="layout-line-height">行间距</label><div class="layout-number"><input type="number" id="layout-line-height" class="layout-input" min="1.4" max="2.4" step="0.05"><span>倍</span></div></div>
+          <div class="layout-field"><label for="layout-paragraph-spacing">段落间距</label><div class="layout-number"><input type="number" id="layout-paragraph-spacing" class="layout-input" min="0" max="40" step="1"><span>px</span></div></div>
+        </div>
+      </section>
+      <section class="layout-section">
+        <h3>阅读细节</h3>
+        <div class="layout-grid">
+          <div class="layout-field"><label for="layout-content-padding">两侧留白</label><div class="layout-number"><input type="number" id="layout-content-padding" class="layout-input" min="0" max="40" step="1"><span>px</span></div></div>
+          <div class="layout-field"><label for="layout-letter-spacing">字间距</label><div class="layout-number"><input type="number" id="layout-letter-spacing" class="layout-input" min="0" max="3" step="0.1"><span>px</span></div></div>
+        </div>
+        <label class="checkbox-label layout-indent"><input type="checkbox" id="layout-first-line-indent"><span>正文段落首行缩进 2em</span></label>
+      </section>
+      <section class="layout-section">
+        <h3>内容组件</h3>
+        <div class="layout-grid">
+          <div class="layout-field"><label for="layout-table-font-size">表格字号</label><div class="layout-number"><input type="number" id="layout-table-font-size" class="layout-input" min="11" max="20" step="0.5"><span>px</span></div></div>
+          <div class="layout-field"><label for="layout-code-font-size">代码字号</label><div class="layout-number"><input type="number" id="layout-code-font-size" class="layout-input" min="10" max="20" step="0.5"><span>px</span></div></div>
+          <div class="layout-field"><label for="layout-code-line-height">代码行距</label><div class="layout-number"><input type="number" id="layout-code-line-height" class="layout-input" min="1.3" max="2.4" step="0.05"><span>倍</span></div></div>
+        </div>
+      </section>
+    </div>
+    <div class="dialog-footer"><button type="button" class="dialog-btn" id="btn-reset-layout">恢复模板默认</button><button type="button" class="dialog-btn primary" data-close-dialog="layout-dialog">完成</button></div>
+  </dialog>
+
+  <dialog id="image-dialog" class="app-dialog image-dialog">
+    <div class="dialog-header"><h2>插入图片</h2><button type="button" class="dialog-close" data-close-dialog="image-dialog" aria-label="关闭">×</button></div>
+    <div class="dialog-body">
+      <label class="field-label" for="image-alt">图片描述</label>
+      <input type="text" id="image-alt" class="dialog-input" placeholder="图片" maxlength="100" autocomplete="off">
+      <div class="image-drop-zone" id="image-drop-zone" role="button" tabindex="0" aria-label="选择或拖拽图片">
+        <span class="image-drop-icon" aria-hidden="true">🖼️</span>
+        <strong>选择、拖拽或粘贴图片</strong>
+        <span>JPG、PNG、GIF、WebP，每张不超过 5MB</span>
+        <button type="button" class="dialog-btn" id="btn-select-image">选择本地图片</button>
+      </div>
+      <p class="dialog-hint image-local-status" id="image-local-status">仅在本机处理，也可拖入编辑区或粘贴截图。</p>
+      <label class="field-label image-url-label" for="image-url">在线图片地址</label>
+      <input type="url" id="image-url" class="dialog-input" placeholder="https://example.com/image.jpg" autocomplete="off">
+    </div>
+    <div class="dialog-footer"><button type="button" class="dialog-btn" data-close-dialog="image-dialog">取消</button><button type="button" class="dialog-btn primary" id="btn-insert-remote-image">插入在线图片</button></div>
+  </dialog>
+
+  <div id="app-toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./js/themes.js"></script>
+  <script src="./js/templates.js"></script>
+  <script src="./js/converter.js"></script>
+  <script src="./js/editor-highlight.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
