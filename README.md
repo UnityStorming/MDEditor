@@ -2,8 +2,6 @@
 
 一个可以本地运行、静态部署的微信公众号 Markdown 编辑器。左侧编写 Markdown，右侧实时生成适合公众号阅读的排版，支持一键复制富文本。
 
-本项目通过 REA 观察并本地化 [markdown.com.cn 微信编辑器](https://markdown.com.cn/wechat/) 的公开页面资源。源码与来源说明见 [NOTICE.md](NOTICE.md)。
-
 ![桌面预览](evidence/local-desktop.png)
 
 ## 功能
@@ -138,8 +136,6 @@ evidence/                   验证截图与资源清单
 
 ## 验证与开发
 
-2026-11-20 使用 REA 分别录制原站与本地页面，1440×1000 桌面首屏逐像素相同：比较 1,440,000 个像素，差异像素为 0。
-
 18 项浏览器功能检查通过，包括所有主题与模板、实时转换、布局设置、查找替换、刷新恢复、历史恢复、导入导出、本地图片、HTML / 纯文本剪贴板、断网编辑及 390 px 手机布局。调查过程与覆盖边界见 [RECONSTRUCTION.md](RECONSTRUCTION.md)。
 
 开发验证使用本机 Chrome 和 Playwright；应用运行与静态部署无需 Playwright：
@@ -151,5 +147,3 @@ npm test
 ```
 
 测试默认使用 5173 端口，可用 `TEST_URL` 指定其他地址，或用 `PLAYWRIGHT_MODULE_PATH` 指定已有 Playwright 模块目录。测试使用独立临时浏览器配置。
-
-Git 保留验证截图与 `evidence/resource-manifest.json`。原始 REA 录制 JSON 和重新生成的浏览器验证结果保存在本地，由 `.gitignore` 忽略。
